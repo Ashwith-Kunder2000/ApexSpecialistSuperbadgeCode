@@ -11,3 +11,36 @@ private class WarehouseCalloutServiceTest {
         System.assertEquals(1, [SELECT count() FROM Product2]);
     }     
 }
+
+if this dont covers use below code--------------
+
+@isTest
+private class WarehouseCalloutServiceTest {   
+    @isTest  
+    static void testWareHouseCallout(){
+        // Set the mock callout
+        Test.setMock(HttpCalloutMock.class, new WarehouseCalloutServiceMock());
+        
+        Test.startTest();
+        WarehouseCalloutService.runWarehouseEquipmentSync();
+        Test.stopTest();
+        
+        // Verify that a Product2 record was created
+        System.assertEquals(1, [SELECT count() FROM Product2]);
+    }
+
+    @isTest
+    static void testExecuteMethod() {
+        // Set the mock callout
+        Test.setMock(HttpCalloutMock.class, new WarehouseCalloutServiceMock());
+        
+        Test.startTest();
+        // Create an instance of WarehouseCalloutService and call the execute method
+       
+        WarehouseCalloutService.execute(null); // Pass null as QueueableContext is not used in the method
+        Test.stopTest();
+        
+        // Verify that a Product2 record was created
+        System.assertEquals(1, [SELECT count() FROM Product2]);
+    }
+}
